@@ -51,38 +51,38 @@ module.exports = {
 
                     //Message de réponse avec le temps restant
                     message.channel.send(`Vous devez encore patienter.`)
-                    return
+                    return;
                 }
+            }
 
-                //Interval écoulé
-                if(d.getTime() - docs[0]._doc.heure >= interval){
-                    occupe = 1
-                    message.channel.send({files: [`./images/${numero}.png`]}).then((chrono) =>{
+            //Interval écoulé
+            if(d.getTime() - docs[0]._doc.heure >= interval){
+                occupe = 1
+                message.channel.send({files: [`./images/${numero}.png`]}).then((chrono) =>{
 
-                        var temps2 = setInterval(function(){
-                            chrono.edit("Temps : "+((t/1000)-y)+" secondes"); 
-                            y += 1;
-                            if (y > t/1000 ) {
-            
-                                message.channel.send("Temps écoulé.");
-                                //Mise à jour de la dernière heure de jeu du joueur
-                                horodatage.updateOne({_id : docs[0]._doc._id}, {$set: {heure: d.getTime()}}).then(console.log(`Modification faite`))
-                                for (let mj = gameMaster.length-1; mj >= 0; mj--){
-                                    message.channel.send(`<@`+gameMaster[mj]+">")
-                                }
-                                y = 0;
-                                if (remove == 1){
-                                    chrono.delete();
-                                } 
-                                clearInterval(temps2);
-                                occupe=0;
-                                return;
+                    var temps2 = setInterval(function(){
+                        chrono.edit("Temps : "+((t/1000)-y)+" secondes"); 
+                        y += 1;
+                        if (y > t/1000 ) {
+        
+                            message.channel.send("Temps écoulé.");
+                            //Mise à jour de la dernière heure de jeu du joueur
+                            horodatage.updateOne({_id : docs[0]._doc._id}, {$set: {heure: d.getTime()}}).then(console.log(`Modification faite`))
+                            for (let mj = gameMaster.length-1; mj >= 0; mj--){
+                                message.channel.send(`<@`+gameMaster[mj]+">")
                             }
-            
-                        }, 1000);
-            
-                    })
-                }
+                            y = 0;
+                            if (remove == 1){
+                                chrono.delete();
+                            } 
+                            clearInterval(temps2);
+                            occupe=0;
+                            return;
+                        }
+        
+                    }, 1000);
+        
+                })
             }
         })
      }
