@@ -43,7 +43,6 @@ module.exports = {
             if(docs.length === 0){
                 const createHorodatage = new horodatage({id: message.author.id, heure: d.getTime()});
                 createHorodatage.save()
-                return;
 
             } else {
 
