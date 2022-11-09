@@ -91,9 +91,8 @@ module.exports = {
 
         checkavaDB()
 
-        cron.schedule(`00 00 * * *`, () => {
+        cron.schedule(`28 00 * * *`, () => {
             checkavaDB()
-            client.channels.cache.get(`993494605129580685`).send({embeds : [embedRecapAva]})
         })
 
     }
