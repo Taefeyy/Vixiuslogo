@@ -45,8 +45,6 @@ module.exports = {
                 if(d.getTime() - docs[0]._doc.heure < interval){
                     message.channel.send({embeds : [embedtest]})
                 }
-                
-                //message.channel.send(`Vous devez encore patienter : ${convertMsToTime(interval - (d.getTime()-docs[0]._doc.heure))}.`)
             }
         });
     }
