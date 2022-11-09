@@ -15,7 +15,7 @@ module.exports = {
             const addedRoles = newMember.roles.cache.filter(role => !oldMember.roles.cache.has(role.id));
             if (addedRoles.size > 0) {
                 //console.log(`The roles ${addedRoles.map(r => r.name)} were added to ${oldMember.displayName}.`);
-                if(addedRoles.map(r => r.id) == "1039305312936665169" ){
+                if(addedRoles.map(r => r.id) == "722056023115956244" ){
                     const embedMembre = new MessageEmbed()
                     .setColor(0x660099)
                     .setTitle('Bienvenue!')
