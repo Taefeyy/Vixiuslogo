@@ -84,7 +84,7 @@ module.exports = {
                             })
                         }
                     }
-                    client.channels.cache.get(`1033521148547305543`).send({embeds : [embedRecapAva]})
+                    client.channels.cache.get(`993494605129580685`).send({embeds : [embedRecapAva]})
                 }
             })
         }
@@ -93,7 +93,7 @@ module.exports = {
 
         cron.schedule(`00 00 * * *`, () => {
             checkavaDB()
-            client.channels.cache.get(`1033521148547305543`).send({embeds : [embedRecapAva]})
+            client.channels.cache.get(`993494605129580685`).send({embeds : [embedRecapAva]})
         })
 
     }
