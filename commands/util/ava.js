@@ -15,7 +15,7 @@ module.exports = {
             5) Créer une solution pour delete en cas de problème de configuration
         */
 
-        //if (message.channel.id != "993494605129580685") return message.channel.send("Mauvais salon.");
+        if (message.channel.id != "993494605129580685") return message.channel.send("Mauvais salon.");
         if (message.author.id != "250235506288361472") return;
 
         const embedErreurDateHeure = new MessageEmbed()
