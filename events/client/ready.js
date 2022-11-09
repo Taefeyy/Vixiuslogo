@@ -92,7 +92,8 @@ module.exports = {
         checkavaDB()
 
         cron.schedule(`28 00 * * *`, () => {
-            checkavaDB()
+            console.log("In schedule");
+            checkavaDB();
         })
 
     }
