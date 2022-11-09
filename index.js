@@ -1,5 +1,5 @@
 const {Client, Collection} = require('discord.js');
-const client = new Client({intents: 513});
+const client = new Client({intents: 3276799});
 
 const mongoose = require('mongoose');
 
@@ -12,12 +12,15 @@ process.on('uncaughtException', (err, origin) => {console.log(`UNCAUGHT_EXCEPTIO
 process.on('unhandledRejection', (reason, promise) => {console.log(`UNHANDLED_REJECTION: ${reason}\n ---\n`, promise)});
 process.on('warning', (...args) => {console.log(...args)});
 
-client.login(process.env.TOKEN); // à remettre pour heroku
 
+//Passer en ligne de code lors de l'upload
+client.login(process.env.TOKEN);
+
+// Passer en ligne de code lors de l'upload
 mongoose.connect(process.env.DBTOKEN, {
     autoIndex: false, // Don't build indexes
     maxPoolSize: 10, // Maintain up to 10 socket connections
-    serverSelectionTimeoutMS: 50000, // Keep trying to send operations for 5 seconds
-    socketTimeoutMS: 450000, // Close sockets after 45 seconds of inactivity
+    serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4 // Use IPv4, skip trying IPv6
   }).then(()=>{console.log('Le client est connecté à la DB')}).catch(err => {console.log(err)});
