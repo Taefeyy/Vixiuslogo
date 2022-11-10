@@ -75,7 +75,7 @@ module.exports = {
         message.channel.send({embeds : [embedAvaDefinie]})
 
         //Faire la modification pour que ça tag un rôle AvA
-        cron.schedule(`${minuteTag} ${heureTag} ${jour} ${mois} ${date.getDay()}`, () => {
+        cron.schedule(`${minuteTag} ${heureTag}-1 ${jour} ${mois} ${date.getDay()}`, () => {
             message.channel.send(`<@&1039867296195280916>`)
         })
     }
