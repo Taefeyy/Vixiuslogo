@@ -60,14 +60,15 @@ module.exports = {
 
         const d = new Date()
 
-        var embedRecapAva = new MessageEmbed()
-        .setColor(0x660099)
-        .setTitle('Recapitulatif AvA :')
+
 
 
         function checkavaDB(){
             ava.find({name: 'ava'}, function (err, docs){
                 if (docs.length >= 1){
+                    var embedRecapAva = new MessageEmbed()
+                    .setColor(0x660099)
+                    .setTitle('Recapitulatif AvA :')
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
     
                         if(docs[nombre]._doc.moment < (d.getTime()/1000).toString()){
@@ -77,10 +78,12 @@ module.exports = {
                         } else {
                             console.log("Une AvA a été trouvée dans la DB et le message est programmé.");
 
-                            embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${docs[nombre]._doc.lieu} **Date :** ${docs[nombre]._doc.jour}/${docs[nombre]._doc.mois} **Horaire :** ${docs[nombre]._doc.heure}h${docs[nombre]._doc.minutes}`})
+                            embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${docs[nombre]._doc.lieu} **Date :** ${docs[nombre]._doc.jour}/${docs[nombre]._doc.mois} **Tag à :** ${docs[nombre]._doc.heure}h${docs[nombre]._doc.minutes}`})
 
-                            cron.schedule(`${docs[nombre]._doc.minutes} ${docs[nombre]._doc.heure}-1 ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                                message.channel.send(`<@&1039867296195280916>`)
+                            const heureTag = docs[nombre]._doc.heure-1;
+
+                            cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
+                                message.channels.cache.get(`993494605129580685`).send(`<@&1039867296195280916>`)
                             })
                         }
                     }
@@ -92,8 +95,7 @@ module.exports = {
         checkavaDB()
 
         cron.schedule(`00 00 * * *`, () => {
-            console.log("In schedule");
-            checkavaDB();
+            checkavaDB()
         })
 
     }
