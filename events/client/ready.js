@@ -79,7 +79,7 @@ module.exports = {
 
                             embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${docs[nombre]._doc.lieu} **Date :** ${docs[nombre]._doc.jour}/${docs[nombre]._doc.mois} **Horaire :** ${docs[nombre]._doc.heure}h${docs[nombre]._doc.minutes}`})
 
-                            cron.schedule(`${docs[nombre]._doc.minutes} ${docs[nombre]._doc.heure} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
+                            cron.schedule(`${docs[nombre]._doc.minutes} ${docs[nombre]._doc.heure}-1 ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
                                 message.channel.send(`<@&1039867296195280916>`)
                             })
                         }
@@ -91,7 +91,7 @@ module.exports = {
 
         checkavaDB()
 
-        cron.schedule(`33 00 * * *`, () => {
+        cron.schedule(`00 00 * * *`, () => {
             console.log("In schedule");
             checkavaDB();
         })
