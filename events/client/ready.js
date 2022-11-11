@@ -86,14 +86,8 @@ module.exports = {
 
                             const heureTag = docs[nombre]._doc.heure-1;
 
-                            console.log(`minutes: ${docs[nombre]._doc.minutes}`)
-                            console.log(`heures: ${heureTag}`)
-                            console.log(`jour: ${docs[nombre]._doc.jour}`)
-                            console.log(`mois: ${docs[nombre]._doc.mois}`)
-                            console.log(`jour de la semaine: ${docs[nombre]._doc.jourDeLaSemaine}`)
-
                             cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                                client.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
+                                client.channels.cache.get(`993494605129580685`).send(`Lieu : ${docs[nombre]._doc.lieu} début : Dans 10minutes. <@&1039867296195280916>`)
                             })
                         }
                     }
@@ -105,8 +99,7 @@ module.exports = {
                             })
                         }
 
-                    } 
-                    
+                    }
                     if (_idSupprimer.length > 0 && _idSupprimer.length <= 1){
                         ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
                             console.log(docs);
@@ -117,24 +110,10 @@ module.exports = {
             })
         }
         
-        
-        cron.schedule(`10 3 11 11 5`, () => {
-            message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 1`)
-        })
-        
-      cron.schedule(`17 3 11 11 5`, () => {
-          message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 2`)
-      })
-        
         checkavaDB()
 
-      //cron.schedule(`36 3 11 11 5`, () => {
-      //    checkavaDB()
-      //})
-        
-      cron.schedule(`48 3 11 11 5`, () => {
-          console.log("here");
-          console.log(client.channels.cache.get(`993494605129580685`))
+      cron.schedule(`0 0 * * *`, () => {
+          checkavaDB()
       })
 
     }
