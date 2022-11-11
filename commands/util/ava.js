@@ -40,9 +40,7 @@ module.exports = {
         const lieu = message.content.match(/[a-zA-Z]+/g);
 
         
-        const heureEnSeconde = (heure-1) * 60 * 60;
-        const minuteEnSeconde = minute * 60;
-        const moment = ((date.getTime()/1000)+heureEnSeconde+minuteEnSeconde).toString();
+
 
         //Partie définition du moment de tag
         const calculMinuteTag = minute - 10;
@@ -54,6 +52,10 @@ module.exports = {
             var heureTag = heure;
             var minuteTag = calculMinuteTag;
         }
+
+        const heureEnSeconde = (heure-1) * 60 * 60;
+        const minuteEnSeconde = minuteTag * 60;
+        const moment = ((date.getTime()/1000)+heureEnSeconde+minuteEnSeconde).toString();
 
         const createAva = new ava({name: 'ava', jour: jour, mois: mois, heure: heureTag, minutes: minuteTag, moment: moment, lieu: lieu[1], jourDeLaSemaine: date.getDay().toString()});
         createAva.save()
