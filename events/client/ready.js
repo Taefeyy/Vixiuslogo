@@ -118,8 +118,12 @@ module.exports = {
         }
 
         
-        cron.schedule(`1 3 11 11 5`, () => {
-            message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
+        cron.schedule(`5 3 11 11 5`, () => {
+            message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 1`)
+        })
+        
+        cron.schedule(`5 4 11 11 5`, () => {
+            message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 2`)
         })
         
         checkavaDB()
