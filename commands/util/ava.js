@@ -39,8 +39,21 @@ module.exports = {
         const mois = message.content.match(/\d/g).slice(2,4).join('');
         const lieu = message.content.match(/[a-zA-Z]+/g);
 
-        
+        if(heure > 24 || heure < 0) {
+            message.channel.send(`Veuillez définir les heures entre 00 et 24`)
+        };
 
+        if(minute > 60 || minute < 0) {
+            message.channel.send(`Veuillez définir les minutes entre 00 et 60`)
+        };
+
+        if(jour > 31 || jour < 1){
+            message.channel.send(`Veuillez définir le jour entre 01 et 31`)
+        };
+
+        if(mois > 12 || mois < 1){
+            message.channel.send(`Veuillez définir le mois entre 01 et 12`)
+        }
 
         //Partie définition du moment de tag
         const calculMinuteTag = minute - 10;
