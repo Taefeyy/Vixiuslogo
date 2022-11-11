@@ -8,11 +8,8 @@ module.exports = {
 
 
         /*Bosser sur :
-            Done 1) Tag un petit peu avant l'heure de l'ava
-            Done 2) Enregister les données dans une collection de la DB existante
-            Done 3) Au redémarrage du bot relever les données enregistrée dans la collection des AvA
-            Done 4) Trouver un moment où la collection est check et delete les AvA déjà passée (potentiellement dans le schedule)
-            5) Créer une solution pour delete en cas de problème de configuration
+            1) Trouver un moyen de définir le lieu même quand ce sont des noms en plusieurs mots
+            2) Créer une solution pour delete en cas de problème de configuration
         */
 
         if (message.channel.id != "993494605129580685") return message.channel.send("Mauvais salon.");
@@ -50,7 +47,7 @@ module.exports = {
         //Partie définition du moment de tag
         const calculMinuteTag = minute - 10;
 
-        if(calculMinuteTag < 0){
+        if(calculMinuteTag << 0){
             var heureTag = heure - 1;
             var minuteTag = 60 + calculMinuteTag;
         } else {
@@ -65,18 +62,17 @@ module.exports = {
             .setColor(0x660099)
             .setTitle('AvA définie :')
             .setDescription(`**Lieu :** ${lieu[1]}   **Date :** ${jour}/${mois}   **Horaire :** ${heure}h${minute}`)
-            /*.addFields({name: `\u200B`, value:``, inline: true},
-            {name: '\u200B', value: `**Date :** ${jour}/${mois}`, inline: true},
-            {name: '\u200B', value :`**Horaire :** ${heure}h${minute}`},)*/
             .addFields( 
             {name: '\u200B', value :`**Tag à :** ${heureTag}h${minuteTag}`, inline: true},
             );
 
         message.channel.send({embeds : [embedAvaDefinie]})
 
+        const modifHeureHebergeur = heureTag - 1;
+
         //Faire la modification pour que ça tag un rôle AvA
-        cron.schedule(`${minuteTag} ${heureTag}-1 ${jour} ${mois} ${date.getDay()}`, () => {
-            message.channel.send(`<@&1039867296195280916>`)
+        cron.schedule(`${minuteTag} ${modifHeureHebergeur} ${jour} ${mois} ${date.getDay()}`, () => {
+            message.channel.send(`<@&1039867296195280916>`);
         })
     }
 }
