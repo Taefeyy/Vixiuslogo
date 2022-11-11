@@ -53,7 +53,7 @@ module.exports = {
             var minuteTag = calculMinuteTag;
         }
 
-        const heureEnSeconde = (heure-1) * 60 * 60;
+        const heureEnSeconde = (heureTag-1) * 60 * 60;
         const minuteEnSeconde = minuteTag * 60;
         const moment = ((date.getTime()/1000)+heureEnSeconde+minuteEnSeconde).toString();
 
