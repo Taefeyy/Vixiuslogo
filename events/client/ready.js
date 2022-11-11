@@ -79,7 +79,7 @@ module.exports = {
                             _idSupprimer.push(docs[nombre]._doc._id)
 
                         } else {
-                            
+
                             console.log("Une AvA a été trouvée dans la DB et le message est programmé.");
 
                             embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${docs[nombre]._doc.lieu} **Date :** ${docs[nombre]._doc.jour}/${docs[nombre]._doc.mois} **Tag à :** ${docs[nombre]._doc.heure}h${docs[nombre]._doc.minutes}`})
@@ -91,6 +91,8 @@ module.exports = {
                             })
                         }
                     }
+
+                    console.log(`Taille d' _idSupprimer : ${_idSupprimer.length}`)
                     if (_idSupprimer.length > 1){
                         for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer=0 ; nbrASupprimer--){
                             ava.deleteMany({"_id" : _idSupprimer[nbrASupprimer]}, function (err, docs){
@@ -98,7 +100,7 @@ module.exports = {
                             })
                         }
 
-                    } else if (_idSupprimer.length > 1){
+                    } else if (_idSupprimer.length > 0){
                         ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
                             console.log(docs);
                         })
