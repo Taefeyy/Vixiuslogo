@@ -47,7 +47,7 @@ module.exports = {
         //Partie définition du moment de tag
         const calculMinuteTag = minute - 10;
 
-        if(calculMinuteTag << 0){
+        if(calculMinuteTag < 0){
             var heureTag = heure - 1;
             var minuteTag = 60 + calculMinuteTag;
         } else {
