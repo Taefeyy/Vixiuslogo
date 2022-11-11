@@ -93,7 +93,7 @@ module.exports = {
                             console.log(`jour de la semaine: ${docs[nombre]._doc.jourDeLaSemaine}`)
 
                             cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                                message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
+                                client.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
                             })
                         }
                     }
@@ -132,9 +132,9 @@ module.exports = {
       //    checkavaDB()
       //})
         
-      cron.schedule(`45 3 11 11 5`, () => {
+      cron.schedule(`48 3 11 11 5`, () => {
           console.log("here");
-          console.log(message.channels.cache.get(`993494605129580685`))
+          console.log(client.channels.cache.get(`993494605129580685`))
       })
 
     }
