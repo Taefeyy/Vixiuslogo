@@ -92,9 +92,9 @@ module.exports = {
                             console.log(`mois: ${docs[nombre]._doc.mois}`)
                             console.log(`jour de la semaine: ${docs[nombre]._doc.jourDeLaSemaine}`)
 
-                            //cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                            //    message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
-                            //})
+                            cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
+                                message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
+                            })
                         }
                     }
 
@@ -118,9 +118,9 @@ module.exports = {
         }
         
         
-        //cron.schedule(`10 3 11 11 5`, () => {
-        //    message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 1`)
-        //})
+        cron.schedule(`10 3 11 11 5`, () => {
+            message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 1`)
+        })
         
       cron.schedule(`17 3 11 11 5`, () => {
           message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916> Option 2`)
@@ -128,9 +128,9 @@ module.exports = {
         
         checkavaDB()
 
-      //cron.schedule(`00 00 * * *`, () => {
-      //    checkavaDB()
-      //})
+      cron.schedule(`20 03 * * *`, () => {
+          checkavaDB()
+      })
 
     }
 }
