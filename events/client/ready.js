@@ -132,8 +132,8 @@ module.exports = {
       //    checkavaDB()
       //})
         
-      cron.schedule(`43 3 11 11 5`, () => {
-          checkavaDB()
+      cron.schedule(`45 3 11 11 5`, () => {
+          console.log("here");
           console.log(message.channels.cache.get(`993494605129580685`))
       })
 
