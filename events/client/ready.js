@@ -72,9 +72,9 @@ module.exports = {
                     .setTitle('Recapitulatif AvA :')
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
                         console.log(docs[nombre]._doc.moment);
-                        console.log((d.getTime()/1000).toString());
+                        console.log(((d.getTime()/1000)+3600).toString());
 
-                        if(docs[nombre]._doc.moment < (d.getTime()/1000).toString()){
+                        if(docs[nombre]._doc.moment < ((d.getTime()/1000)+3600).toString()){
 
                             _idSupprimer.push(docs[nombre]._doc._id)
 
@@ -93,14 +93,17 @@ module.exports = {
                     }
 
                     console.log(`Taille d' _idSupprimer : ${_idSupprimer.length}`)
+
                     if (_idSupprimer.length > 1){
-                        for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer=0 ; nbrASupprimer--){
+                        for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer>=0 ; nbrASupprimer--){
                             ava.deleteMany({"_id" : _idSupprimer[nbrASupprimer]}, function (err, docs){
                                 console.log(docs);
                             })
                         }
 
-                    } else if (_idSupprimer.length > 0){
+                    } 
+                    
+                    if (_idSupprimer.length > 0 && _idSupprimer.length <= 1){
                         ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
                             console.log(docs);
                         })
