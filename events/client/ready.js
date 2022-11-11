@@ -71,7 +71,7 @@ module.exports = {
                     .setTitle('Recapitulatif AvA :')
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
                         console.log(docs[nombre]._doc.moment);
-                        console.log(d.getTime()/1000).toString();
+                        console.log((d.getTime()/1000).toString());
                         if(docs[nombre]._doc.moment < (d.getTime()/1000).toString()){
                             ava.deleteOne({"_id" : docs[nombre]._doc._id}, function (err, docs){
                                 console.log(docs);
