@@ -84,7 +84,7 @@ module.exports = {
                             const heureTag = docs[nombre]._doc.heure-1;
 
                             cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                                message.channels.cache.get(`993494605129580685`).send(`<@&1039867296195280916>`)
+                                message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
                             })
                         }
                     }
