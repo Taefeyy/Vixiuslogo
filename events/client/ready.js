@@ -71,8 +71,6 @@ module.exports = {
                     .setColor(0x660099)
                     .setTitle('Recapitulatif AvA :')
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
-                        console.log(docs[nombre]._doc.moment);
-                        console.log(((d.getTime()/1000)+3600).toString());
 
                         if(docs[nombre]._doc.moment < ((d.getTime()/1000)+3600).toString()){
 
@@ -86,13 +84,17 @@ module.exports = {
 
                             const heureTag = docs[nombre]._doc.heure-1;
 
+                            console.log(`minutes: ${docs[nombre]._doc.minutes}`)
+                            console.log(`heures: ${heureTag}`)
+                            console.log(`jour: ${docs[nombre]._doc.jour}`)
+                            console.log(`mois: ${docs[nombre]._doc.mois}`)
+                            console.log(`jour de la semaine: ${docs[nombre]._doc.jourDeLaSemaine}`)
+
                             cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
                                 message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
                             })
                         }
                     }
-
-                    console.log(`Taille d' _idSupprimer : ${_idSupprimer.length}`)
 
                     if (_idSupprimer.length > 1){
                         for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer>=0 ; nbrASupprimer--){
