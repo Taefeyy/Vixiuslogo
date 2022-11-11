@@ -72,7 +72,7 @@ module.exports = {
                     .setTitle('Recapitulatif AvA :')
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
                         console.log(docs[nombre]._doc.minutes.moment)
-                        console.log(((d.getTime()/1000)+3600).toString()))
+                        console.log(((d.getTime()/1000)+3600).toString())
 
                         if(docs[nombre]._doc.moment < ((d.getTime()/1000)+3600).toString()){
 
