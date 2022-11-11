@@ -60,23 +60,26 @@ module.exports = {
 
         const d = new Date()
 
-
+        var _idSupprimer = []
 
 
         function checkavaDB(){
             ava.find({name: 'ava'}, function (err, docs){
                 if (docs.length >= 1){
+                    _idSupprimer.length=0;
                     var embedRecapAva = new MessageEmbed()
                     .setColor(0x660099)
                     .setTitle('Recapitulatif AvA :')
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
                         console.log(docs[nombre]._doc.moment);
                         console.log((d.getTime()/1000).toString());
+
                         if(docs[nombre]._doc.moment < (d.getTime()/1000).toString()){
-                            ava.deleteOne({"_id" : docs[nombre]._doc._id}, function (err, docs){
-                                console.log(docs);
-                            })
+
+                            _idSupprimer.push(docs[nombre]._doc._id)
+
                         } else {
+                            
                             console.log("Une AvA a été trouvée dans la DB et le message est programmé.");
 
                             embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${docs[nombre]._doc.lieu} **Date :** ${docs[nombre]._doc.jour}/${docs[nombre]._doc.mois} **Tag à :** ${docs[nombre]._doc.heure}h${docs[nombre]._doc.minutes}`})
@@ -87,6 +90,18 @@ module.exports = {
                                 message.channels.cache.get(`993494605129580685`).send(`Début : Dans 10minutes. <@&1039867296195280916>`)
                             })
                         }
+                    }
+                    if (_idSupprimer.length > 1){
+                        for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer=0 ; nbrASupprimer--){
+                            ava.deleteMany({"_id" : _idSupprimer[nbrASupprimer]}, function (err, docs){
+                                console.log(docs);
+                            })
+                        }
+
+                    } else if (_idSupprimer.length > 1){
+                        ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
+                            console.log(docs);
+                        })
                     }
                     client.channels.cache.get(`993494605129580685`).send({embeds : [embedRecapAva]})
                 }
