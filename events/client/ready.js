@@ -76,9 +76,9 @@ module.exports = {
                     //Boucle FOR pour traiter les différentes AvA listée dans la DB.
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
                         console.log(docs[nombre]._doc.moment)
-                        console.log(((d.getTime()/1000)).toString())
+                        console.log(((d.getTime()/1000)+3600).toString())
 
-                        if(docs[nombre]._doc.moment < ((d.getTime()/1000)).toString()){
+                        if(docs[nombre]._doc.moment < ((d.getTime()/1000)+3600).toString()){
 
                             //Enregistrement des _id à supprimer de la DB
                             _idSupprimer.push(docs[nombre]._doc._id)
