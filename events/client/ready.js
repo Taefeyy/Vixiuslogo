@@ -58,11 +58,10 @@ module.exports = {
             }
         })
 
-        const d = new Date()
-
         var _idSupprimer = []
 
         function checkavaDB(){
+            const d = new Date()
             ava.find({name: 'ava'}, function (err, docs){
                 if (docs.length >= 1){
                     //Repassage à 0 des _id à supprimer, avant de faire la lecture quotidienne des nouveaux _id à supprimer.
