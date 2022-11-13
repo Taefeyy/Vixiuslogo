@@ -87,7 +87,7 @@ module.exports = {
 
         //Faire la modification pour que ça tag un rôle AvA
         cron.schedule(`${minuteTag} ${modifHeureHebergeur} ${jour} ${mois} ${date.getDay()}`, () => {
-            message.channel.send(`AvA : ${lieu[1]} \n Début : dans 10minutes \n <@&1039867296195280916>`);
+            message.channel.send(`AvA : ${lieu[1]} \nDébut : dans 10minutes \n<@&1039867296195280916>`);
         })
     }
 }
