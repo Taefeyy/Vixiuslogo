@@ -94,7 +94,7 @@ module.exports = {
 
                             //Création d'une tâche à un moment précis.
                             cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                                client.channels.cache.get(`993494605129580685`).send(`AvA : ${docs[nombre]._doc.lieu} \n Début : dans 10 minutes \n <@&1039867296195280916>`)
+                                client.channels.cache.get(`993494605129580685`).send(`AvA : ${docs[nombre]._doc.lieu} \nDébut : dans 10 minutes \n<@&1039867296195280916>`)
                             })
                         }
                     }
