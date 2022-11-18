@@ -58,10 +58,12 @@ module.exports = {
             }
         })
 
+        const d = new Date()
+
         var _idSupprimer = []
+        var avaFutureReady = []
 
         function checkavaDB(){
-            const d = new Date()
             ava.find({name: 'ava'}, function (err, docs){
                 if (docs.length >= 1){
                     //Repassage à 0 des _id à supprimer, avant de faire la lecture quotidienne des nouveaux _id à supprimer.
@@ -75,9 +77,9 @@ module.exports = {
                     //Boucle FOR pour traiter les différentes AvA listée dans la DB.
                     for (let nombre = docs.length-1; nombre >= 0; nombre--){
                         console.log(docs[nombre]._doc.moment)
-                        console.log(((d.getTime()/1000)+3600).toString())
+                        console.log(((d.getTime()/1000)).toString())
 
-                        if(docs[nombre]._doc.moment < ((d.getTime()/1000)+3600).toString()){
+                        if(docs[nombre]._doc.moment < ((d.getTime()/1000)).toString()){
 
                             //Enregistrement des _id à supprimer de la DB
                             _idSupprimer.push(docs[nombre]._doc._id)
@@ -86,15 +88,16 @@ module.exports = {
 
                             console.log("Une AvA a été trouvée dans la DB et le message est programmé.");
 
-                            //Mise à jour de l'embed recapitulatif des AvA, en fonction des données trouvées dans la DB.
-                            embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${docs[nombre]._doc.lieu} **Date :** ${docs[nombre]._doc.jour}/${docs[nombre]._doc.mois} **Tag à :** ${docs[nombre]._doc.heure}h${docs[nombre]._doc.minutes}`})
+
+                            //Mise à jour de l'array en fonction des AvA futures trouvées dans la DB.
+                            avaFutureReady.push({lieu : docs[nombre]._doc.lieu, jour : docs[nombre]._doc.jour, mois : docs[nombre]._doc.mois, heures : docs[nombre]._doc.heure, minutes : docs[nombre]._doc.minutes, moment : docs[nombre]._doc.moment});
 
                             //Retrait d'une heure pour prendre en considération le décalage GMT+1.
                             const heureTag = docs[nombre]._doc.heure-1;
 
                             //Création d'une tâche à un moment précis.
                             cron.schedule(`${docs[nombre]._doc.minutes} ${heureTag} ${docs[nombre]._doc.jour} ${docs[nombre]._doc.mois} ${docs[nombre]._doc.jourDeLaSemaine}`, () => {
-                                client.channels.cache.get(`993494605129580685`).send(`AvA : ${docs[nombre]._doc.lieu} \nDébut : dans 10 minutes \n<@&1039867296195280916>`)
+                                client.channels.cache.get(`993494605129580685`).send(`AvA : ${docs[nombre]._doc.lieu} \n Début : dans 10 minutes \n <@&1039867296195280916>`)
                             })
                         }
                     }
@@ -111,6 +114,18 @@ module.exports = {
                         ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
                             console.log(docs);
                         })
+                    }
+
+                    //Tri des AvA pour les avoir dans l'ordre du plus proche au plus éloigné
+                    avaFutureReady.sort(function (a, b) {
+                        return b.moment - a.moment;
+                      });
+        
+                    //Création de l'embed récapitulatif quotidien
+                    if (avaFutureReady.length > 1){
+                        for (let x = avaFutureReady.length - 1 ; x >= 0 ; x--){
+                            embedRecapAva.addFields({name: '\u200B', value : `**Lieu :** ${avaFutureReady[x].lieu} **Date :** ${avaFutureReady[x].jour}/${avaFutureReady[x].mois} **Tag à :** ${avaFutureReady[x].heures}h${avaFutureReady[x].minutes}`})
+                        }
                     }
 
                     //Message récapitulatif quotidien.
