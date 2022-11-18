@@ -13,6 +13,7 @@ module.exports = {
     const d = new Date ()
 
         ava.find({name: 'ava'}, function (err, docs){
+            if (docs.length == 0) {return message.channel.send("Il n'y a pas d'AvA enregistrée.");}
             if (docs.length >= 1){
 
                 //Repassage à 0 des _id à supprimer, avant de faire la lecture quotidienne des nouveaux _id à supprimer.
@@ -39,19 +40,19 @@ module.exports = {
                     }
                 }
 
-                // //Suppression quotidienne des AvA déjà passée dans la DB.
-                // if (_idSupprimer.length > 1){
-                //     for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer>=0 ; nbrASupprimer--){
-                //         ava.deleteMany({"_id" : _idSupprimer[nbrASupprimer]}, function (err, docs){
-                //             console.log(docs);
-                //         })
-                //     }
-                // }
-                // if (_idSupprimer.length > 0 && _idSupprimer.length <= 1){
-                //     ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
-                //         console.log(docs);
-                //     })
-                // }
+                 //Suppression quotidienne des AvA déjà passée dans la DB.
+                 if (_idSupprimer.length > 1){
+                     for (let nbrASupprimer = _idSupprimer.length-1; nbrASupprimer>=0 ; nbrASupprimer--){
+                         ava.deleteMany({"_id" : _idSupprimer[nbrASupprimer]}, function (err, docs){
+                             console.log(docs);
+                         })
+                     }
+                 }
+                 if (_idSupprimer.length > 0 && _idSupprimer.length <= 1){
+                     ava.deleteOne({"_id" : _idSupprimer[0]}, function (err, docs){
+                         console.log(docs);
+                     })
+                 }
             }
 
             avaFuture.sort(function (a, b) {
