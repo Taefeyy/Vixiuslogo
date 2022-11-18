@@ -55,6 +55,15 @@ module.exports = {
             message.channel.send(`Veuillez définir le mois entre 01 et 12`)
         }
 
+        removeFromLieu = ['ava' , 'h']
+
+        for (let place = removeFromLieu.length - 1 ; place >= 0; place --){
+            const index = lieu.indexOf(removeFromLieu[place])
+            lieu.splice(index , 1)
+        }
+
+        zoneAva = lieu.join(' ');
+
         //Partie définition du moment de tag
         const calculMinuteTag = minute - 10;
 
@@ -70,13 +79,13 @@ module.exports = {
         const minuteEnSeconde = minuteTag * 60;
         const moment = ((date.getTime()/1000)+heureEnSeconde+minuteEnSeconde).toString();
 
-        const createAva = new ava({name: 'ava', jour: jour, mois: mois, heure: heureTag, minutes: minuteTag, moment: moment, lieu: lieu[1], jourDeLaSemaine: date.getDay().toString()});
+        const createAva = new ava({name: 'ava', jour: jour, mois: mois, heure: heureTag, minutes: minuteTag, moment: moment, lieu: zoneAva, jourDeLaSemaine: date.getDay().toString()});
         createAva.save()
 
         const embedAvaDefinie = new MessageEmbed()
             .setColor(0x660099)
             .setTitle('AvA définie :')
-            .setDescription(`**Lieu :** ${lieu[1]}   **Date :** ${jour}/${mois}   **Horaire :** ${heure}h${minute}`)
+            .setDescription(`**Lieu :** ${zoneAva}   **Date :** ${jour}/${mois}   **Horaire :** ${heure}h${minute}`)
             .addFields( 
             {name: '\u200B', value :`**Tag à :** ${heureTag}h${minuteTag}`, inline: true},
             );
@@ -87,7 +96,7 @@ module.exports = {
 
         //Faire la modification pour que ça tag un rôle AvA
         cron.schedule(`${minuteTag} ${modifHeureHebergeur} ${jour} ${mois} ${date.getDay()}`, () => {
-            message.channel.send(`AvA : ${lieu[1]} \nDébut : dans 10minutes \n<@&1039867296195280916>`);
+            message.channel.send(`AvA : ${lieu[1]} \n Début : dans 10minutes \n <@&1039867296195280916>`);
         })
     }
 }
